@@ -9,8 +9,9 @@ class Product{
     }
 
     save(){
-        const db =getDb;
-        db.collection('products').insertOne(this
+        console.log(this)
+        const db =getDb();
+        return db.collection('products').insertOne(this
         //     {
         //     name:'a book',
         //     price:12.22,
@@ -19,7 +20,7 @@ class Product{
         // }
         )
         .then(result=>
-            console.log(result))
+            console.log("result=",result))
         .catch(err=>console.log(err))
     }
 }
