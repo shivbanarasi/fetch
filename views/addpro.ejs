@@ -7,13 +7,43 @@
     <title>Document</title>
 </head>
 <body>
+    <%if(updata){%>
+        
+    <form action="/update/<%=updata._id%>" method="POST">
+        <input type="text" name="title" id="title" value="<%=updata.title%>" >
+    <input type="text" name="price" id="price" value="<%=updata.price%>">
+    <input type="text" name="discription" id="discription" value="<%=updata.discription%>">
+    <input type="text" name="imageUrl" id="imageUrl" value="<%=updata.imageUrl%>">
+   
+    <button>update</button>
+    </form>
+    <%}else{%>
     <form action="/add" method="POST">
-        <input type="text" name="title" id="title" placeholder="title">
+        <input type="text" name="title" id="title" placeholder="title" >
     <input type="text" name="price" id="price" placeholder="price">
     <input type="text" name="discription" id="discription" placeholder="discription">
     <input type="text" name="imageUrl" id="imageUrl" placeholder="imageUrl">
     <button>add</button>
     </form>
+    <%}%>
+    <br>
+
+  <%for(let i of data){%>
+    <li>title=<%=i.title%>   price=<%=i.price%>  
+         discription=<%=i.discription%>
+         <input type="hidden" id="hidId" value="<%i._id%>">
+    <!-- <button onclick="edit()">edit</button>
+    <button onclick="del()">delete</button> -->
+    <a style="border: solid black; background-color: yellow;" href="/update/<%=i._id%>">edit</a>
+    <a style=" border:solid black; background-color: red;" href="/delete/<%=i._id%>">delete</a>
+        </li>
+    
+    <br>
+    <%}%>
     
 </body>
+ <script>
+const id=document.getElementById('hidId').value;
+console.log(id)
+</script>
 </html>
