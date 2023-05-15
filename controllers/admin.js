@@ -1,9 +1,6 @@
 const Product=require('../models/product');
-//const da=[1,2,3,4,5,6]
 exports.getAddProduct=async(req,res)=>{
     const da=await Product.fetchAll()
-    //for(let i of da)
-    //console.log(i.title)
 res.render('addpro',{
     data:da,
     updata:''
@@ -19,8 +16,9 @@ exports.postAddProduct=async(req,res)=>{
     const price=req.body.price;
     const discription=req.body.discription;
     const imageUrl=req.body.imageUrl;
-    console.log(title,price,discription)
-    const product=new Product(title,price,discription,imageUrl)
+    const user_id=req.body.user_id;
+    console.log(title,price,discription,user_id)
+    const product=new Product(title,price,discription,imageUrl,user_id)
     product.save()
     .then(async(result)=>{
         //console.log('controller result=',result)
