@@ -2,33 +2,28 @@ const mongodb=require('mongodb')
 const getDb=require('../util/database').getDb;
 
 class Product{
-    constructor(title,price,discription,imageUrl){
+    constructor(title,price,discription,imageUrl,user_id){
         this.title=title;
         this.price=price;
         this.discription=discription;
         this.imageUrl=imageUrl;
+        this.user_id=user_id;
     }
 
     save(){
         console.log(this)
         const db =getDb();
-        return db.collection('products').insertOne(this
-        //     {
-        //     name:'a book',
-        //     price:12.22,
-        //     discription:"its a good book",
-        //     imageUrl:"dfkjdhfdjl"
-        // }
-        )
+        return db.collection('products').insertOne(this)
         .then(result=>
             console.log("result=",result))
         .catch(err=>console.log(err))
     }
-    static fetchAll(){
+    static fetchAll(id){
         const db =getDb();
-        return db.collection('products').find().toArray()
+        return db.collection('products')
+        .find({user_id:id}).toArray()
         .then(result=>{
-            //console.log(result)
+            console.log(result)
             return result
         })
         .catch(err=>console.log(err))
