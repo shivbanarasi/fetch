@@ -25,6 +25,18 @@ class Users{
         })
         .catch(err=>console.log(err))   
     }
+
+    static fetchOne(id){
+        console.log('infetchOnehi',id)
+        const db=getDb();
+        return db.collection('users')
+        .find({_id:new mongodb.ObjectId(id)})
+        .toArray()
+    .then(result=>{
+           return result
+        })
+    .catch(err=>console.log(err))
+     } 
 }
 
 module.exports=Users;

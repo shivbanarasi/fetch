@@ -30,12 +30,29 @@ exports.postLogin=(req,res)=>{
     .then(async(resp)=>{
         console.log(`${resp.password}`==`${password}`);
         if(`${resp.password}`===`${password}`){
-            const da=await Product.fetchAll(resp._id)
-            res.render('addpro',{
-                data:da,
-                updata:false,
-            })
+           // const da=await Product.fetchAll()
+            // res.render('products',{
+            //     data:da,
+            //     name:resp
+            // })
+            res.redirect(`/login/${resp._id}`)
         }
     })
+}
+
+exports.userlogin=async(req,res)=>{
+    //const id=req.params.id;
+    console.log('this is user id',req.params.id)
+    const productData=await Product.fetchAll();
+     User.fetchOne("6461a53dac851e58d46bba01")
+     .then(resp=>{
+        console.log(resp[0])
+        res.render('products',{
+            data:productData,
+            name:resp[0],
+        })
+     })
+    
+   
 }
 

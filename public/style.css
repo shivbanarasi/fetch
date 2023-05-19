@@ -46,3 +46,9 @@
     padding: 2% 10% 2% 10%;
     margin: 5% 0% 0 35%;
 }
+
+.yourcart{
+    border: solid black;
+    background-color: blueviolet;
+    color: white;
+}

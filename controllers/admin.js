@@ -16,9 +16,10 @@ exports.postAddProduct=async(req,res)=>{
     const price=req.body.price;
     const discription=req.body.discription;
     const imageUrl=req.body.imageUrl;
-    const user_id=req.body.user_id;
-    console.log(title,price,discription,user_id)
-    const product=new Product(title,price,discription,imageUrl,user_id)
+    const quantity=req.body.quantity;
+
+    //console.log(title,price,discription,user_id)
+    const product=new Product(title,price,discription,imageUrl,quantity)
     product.save()
     .then(async(result)=>{
         //console.log('controller result=',result)

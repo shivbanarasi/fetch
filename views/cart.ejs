@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title><%=name.name%></title>
+</head>
+<body>
+<h1>hello <%=name.name%></h1>
+    <br>
+
+  <%for(let i of data){%>
+    <li>title=<%=i.title%>   price=<%=i.price%>  quantity=<%=i.quantity%>
+        
+         <input type="hidden" name="product_Id" value="<%i._id%>">
+         <input type="hidden" name="user_Id" value="<%=name._id%>">
+    <!-- <button onclick="edit()">edit</button>
+    <button onclick="del()">delete</button> -->
+    <a style="border: solid black; background-color: rgb(0, 30, 255); color: white;" href="/detail/<%=i._id%>">see detail</a>
+    <a style=" border:solid black; background-color: rgb(0, 255, 149);" href="/removefromcart/<%=i._id%>/<%=name._id%>">remove from cart</a>
+        </li>
+    <br>
+    <%}%>
+
+    <a href="/login/<%=name._id%>">shop more</a>
+
+    <a href="/login">logout</a>
+    
+</body>
+</html>
