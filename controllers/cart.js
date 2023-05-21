@@ -29,15 +29,15 @@ exports.addtocart=async(req,res)=>{
 exports.getcart=async(req,res)=>{
     let arrdata=[];
     const userid=req.params.userid;
-    console.log('getcart user id',userid)
+   // console.log('getcart user id',userid)
     const cartdatafromcart=await Cart.fetchcart("6461a53dac851e58d46bba01")
-    console.log('cart data',cartdatafromcart)
+    //console.log('cart data',cartdatafromcart)
     for(let data of cartdatafromcart){
         const productdata=await Product.fetchOne(data.product_id)
-        console.log(productdata)
+       // console.log(productdata)
         arrdata.push(productdata)
     }
-    console.log(arrdata)
+    console.log(arrdata[0].title)
     // const cartdata=await Product.fetch("6461a53dac851e58d46bba01")
    const userdata=await User.fetchOne("6461a53dac851e58d46bba01")
    // console.log("get cart user data",userdata[0])
@@ -53,4 +53,30 @@ exports.removefromcart=async(req,res)=>{
     const remove=await Product.removefromcart(productId)
     const removecart=await Cart.removefromcart(productId,userId)
     res.redirect(`/yourcart/${userId}`)
+}
+
+exports.orderfromcart=async(req,res)=>{
+    let arrdata=[];
+    let total=0;
+    const userid=req.params.userid;
+   // console.log('getcart user id',userid)
+    const cartdatafromcart=await Cart.fetchcart("6461a53dac851e58d46bba01")
+    //console.log('cart data',cartdatafromcart)
+    for(let data of cartdatafromcart){
+        const productdata=await Product.fetchOne(data.product_id)
+        total+=(parseInt(data.quantity)*parseInt(productdata.price));
+        console.log(total)
+        arrdata.push(productdata)
+    }
+    console.log(arrdata[1])
+    // const cartdata=await Product.fetch("6461a53dac851e58d46bba01")
+   const userdata=await User.fetchOne("6461a53dac851e58d46bba01")
+   // console.log("get cart user data",userdata[0])
+    res.render('order',{
+        name:userdata[0],
+        data:arrdata,
+        orderdata:total,
+        datafromcart:cartdatafromcart,
+    })
+    
 }

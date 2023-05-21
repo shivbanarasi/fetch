@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title><%=name.name%></title>
+</head>
+<body>
+<h1>hello <%=name.name%></h1>
+    <br>
+
+  <%for(let i of data){%>
+    <li>title=<%=i.title%>   price=<%=i.price%> 
+        
+    
+        </li>
+    <br>
+    <%}%>
+<input type="hidden" id="payamount" value="<%=orderdata%>">
+   <p>total=<%=orderdata%></p> 
+    
+    <button onclick="buy()">buy now</button>
+    <br>
+    <a style="border: solid black; background-color: rgb(224, 70, 208); " href="/login">logout</a>
+    
+</body>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+    const payamount=document.getElementById('payamount').value
+   async function buy(){
+        console.log('hello')
+        let response=await fetch('http://localhost:4000/payment',{
+        method:"POST",
+        header:{
+            "Content-Type":"application/json"
+        },
+        body:JSON.stringify({
+            amount:payamount*100,
+        })
+    })
+
+    
+
+    let order=await response.json();
+
+    console.log(order)
+    console.log(order.order.id)
+
+    var options = {
+    //"key": "", // Enter the Key ID generated from the Dashboard
+    "amount": order.order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+    "currency": "INR",
+    "order_id": order.order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+    "callback_url": "http://localhost:4000//payment/verify",
+    // "handler": function (response){
+    //     alert(response.razorpay_payment_id);
+    //     alert(response.razorpay_order_id);
+    //     alert(response.razorpay_signature)
+    // },
+};
+var rzp1 = new Razorpay(options);
+
+
+    rzp1.open();
+    }
+</script>
+</html>

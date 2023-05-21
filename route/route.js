@@ -30,7 +30,9 @@ route.get('/cart/:user_id/:product_id',cartController.addtocart)
 
 route.get('/yourcart/:userid',cartController.getcart)
 
-route.get('/removefromcart/:product_id/:user_id',cartController.removefromcart)
+route.get('/removefromcart/:product_id/:user_id',cartController.removefromcart);
+
+route.get('/order/:userId',cartController.orderfromcart)
 
 
 module.exports=route;
